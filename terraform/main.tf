@@ -130,6 +130,13 @@ resource "azurerm_private_dns_zone" "snowflake" {
   resource_group_name       = azurerm_resource_group.rg.name
 }
 
+resource "azurerm_private_dns_zone_virtual_network_link" "snowflake" {
+  name                  = "snowflake"
+  resource_group_name   = azurerm_resource_group.rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.snowflake.name
+  virtual_network_id    = azurerm_virtual_network.default.id
+}
+
 resource "azurerm_private_endpoint" "pe" {
   name                = "pe-sa${local.func_name}"
   location            = azurerm_resource_group.rg.location
