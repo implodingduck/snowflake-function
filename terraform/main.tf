@@ -15,7 +15,11 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 
   subscription_id = var.subscription_id
 }
@@ -40,8 +44,8 @@ resource "random_string" "unique" {
 data "azurerm_client_config" "current" {}
 
 data "azurerm_log_analytics_workspace" "default" {
-  name                = "DefaultWorkspace-${data.azurerm_client_config.current.subscription_id}-EUS"
-  resource_group_name = "DefaultResourceGroup-EUS"
+  name                = "DefaultWorkspace-${data.azurerm_client_config.current.subscription_id}-CUS"
+  resource_group_name = "DefaultResourceGroup-CUS"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -90,6 +94,17 @@ resource "azurerm_subnet" "functions" {
   }
  
 }
+
+resource "azurerm_subnet" "pl-snowflake" {
+  name                  = "snet-plsnowflake-${local.loc_for_naming}"
+  resource_group_name   = azurerm_virtual_network.default.resource_group_name
+  virtual_network_name  = azurerm_virtual_network.default.name
+  address_prefixes      = ["10.9.0.128/26"]
+
+  private_link_service_network_policies_enabled = false
+  private_endpoint_network_policies_enabled     = false
+}
+
 
 
 resource "azurerm_private_dns_zone" "blob" {
