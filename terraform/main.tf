@@ -70,11 +70,6 @@ resource "azurerm_subnet" "pe" {
 
 }
 
-resource "azurerm_subnet_network_security_group_association" "pe" {
-  subnet_id                 = azurerm_subnet.pe.id
-  network_security_group_id = data.azurerm_network_security_group.basic.id
-}
-
 resource "azurerm_subnet" "functions" {
   name                  = "snet-functions-${local.loc_for_naming}"
   resource_group_name   = azurerm_virtual_network.default.resource_group_name
@@ -96,10 +91,6 @@ resource "azurerm_subnet" "functions" {
  
 }
 
-resource "azurerm_subnet_network_security_group_association" "functions" {
-  subnet_id                 = azurerm_subnet.functions.id
-  network_security_group_id = data.azurerm_network_security_group.basic.id
-}
 
 resource "azurerm_private_dns_zone" "blob" {
   name                      = "privatelink.blob.core.windows.net"
