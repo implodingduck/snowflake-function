@@ -125,6 +125,11 @@ resource "azurerm_private_dns_zone" "functions" {
   resource_group_name       = azurerm_resource_group.rg.name
 }
 
+resource "azurerm_private_dns_zone" "snowflake" {
+  name                      = "privatelink.snowflakecomputing.com"
+  resource_group_name       = azurerm_resource_group.rg.name
+}
+
 resource "azurerm_private_endpoint" "pe" {
   name                = "pe-sa${local.func_name}"
   location            = azurerm_resource_group.rg.location
