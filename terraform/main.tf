@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.17.0"
+      version = "=3.21.1"
     }
     random = {
       source  = "hashicorp/random"
@@ -103,6 +103,7 @@ resource "azurerm_subnet" "pl-snowflake" {
 
   private_link_service_network_policies_enabled = false
   private_endpoint_network_policies_enabled     = false
+  
 }
 
 
