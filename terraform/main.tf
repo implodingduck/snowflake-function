@@ -10,20 +10,20 @@ terraform {
     }
   }
   backend "azurerm" {
-
+    use_oidc = true
   }
 }
 
 provider "azurerm" {
   features {}
-  use_oidc = true
+  use_oidc        = true
   subscription_id = var.subscription_id
 }
 
 locals {
-  func_name = "func${random_string.unique.result}"
+  func_name      = "func${random_string.unique.result}"
   loc_for_naming = lower(replace(var.location, " ", ""))
-  gh_repo = replace(var.gh_repo, "implodingduck/", "")
+  gh_repo        = replace(var.gh_repo, "implodingduck/", "")
   tags = {
     "managed_by" = "terraform"
     "repo"       = local.gh_repo
@@ -42,10 +42,10 @@ data "azurerm_client_config" "current" {}
 data "azurerm_log_analytics_workspace" "default" {
   name                = "DefaultWorkspace-${data.azurerm_client_config.current.subscription_id}-EUS"
   resource_group_name = "DefaultResourceGroup-EUS"
-} 
+}
 
 resource "azurerm_resource_group" "rg" {
   name     = "rg-${local.gh_repo}-${random_string.unique.result}-${local.loc_for_naming}"
   location = var.location
-  tags = local.tags
+  tags     = local.tags
 }
