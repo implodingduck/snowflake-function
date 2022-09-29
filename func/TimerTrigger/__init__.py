@@ -18,7 +18,8 @@ def main(mytimer: func.TimerRequest) -> None:
         conn = snowflake.connector.connect(
             user=os.environ.get('SF_USER'),
             password=os.environ.get('SF_PASS'),
-            account=os.environ.get('SF_ACCOUNT'),
+            account=f"${os.environ.get('SF_ACCOUNT')}.privatelink",
+
             #insecure_mode = True,
         )
 
