@@ -316,6 +316,9 @@ resource "azurerm_linux_function_app" "func" {
     "ENABLE_ORYX_BUILD"                        = "true"
     "XDG_CACHE_HOME"                           = "/tmp/.cache"
     "FUNC_TYPE"                                = "USELOCAL"
+    "SF_ACCOUNT" = "@Microsoft.KeyVault(SecretUri=https://${azurerm_key_vault.kv.name}.vault.azure.net/secrets/SF-ACCOUNT/)" 
+    "SF_USER" = "@Microsoft.KeyVault(SecretUri=https://${azurerm_key_vault.kv.name}.vault.azure.net/secrets/SF-USER/)" 
+    "SF_PASS" = "@Microsoft.KeyVault(SecretUri=https://${azurerm_key_vault.kv.name}.vault.azure.net/secrets/SF-PASS/)" 
   }
 
 }
