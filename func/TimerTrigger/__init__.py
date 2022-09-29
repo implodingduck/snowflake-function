@@ -6,6 +6,14 @@ import snowflake.connector
 import azure.functions as func
 import time
 
+for logger_name in ['snowflake.connector']:
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.DEBUG)
+    ch = logging.FileHandler('/tmp/python_connector.log')
+    ch.setLevel(logging.DEBUG)
+    ch.setFormatter(logging.Formatter('%(asctime)s - %(threadName)s %(filename)s:%(lineno)d - %(funcName)s() - %(levelname)s - %(message)s'))
+    logger.addHandler(ch)
+
 def main(mytimer: func.TimerRequest) -> None:
     utc_timestamp_start = datetime.datetime.utcnow().replace(
         tzinfo=datetime.timezone.utc).isoformat()
