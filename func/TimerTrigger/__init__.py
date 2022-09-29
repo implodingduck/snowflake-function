@@ -19,7 +19,7 @@ def main(mytimer: func.TimerRequest) -> None:
             user=os.environ.get('SF_USER'),
             password=os.environ.get('SF_PASS'),
             account=os.environ.get('SF_ACCOUNT'),
-            insecure_mode = True,
+            #insecure_mode = True,
         )
 
         conn.cursor().execute("USE DATABASE SNOWFLAKE_SAMPLE_DATA")
