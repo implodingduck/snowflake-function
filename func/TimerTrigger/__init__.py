@@ -12,11 +12,12 @@ def main(mytimer: func.TimerRequest) -> None:
 
     if mytimer.past_due:
         logging.info('The timer is past due!')
-
+    logging.info('Python timer trigger function start at %s', utc_timestamp)
     conn = snowflake.connector.connect(
         user=os.environ.get('SF_USER'),
         password=os.environ.get('SF_PASS'),
         account=os.environ.get('SF_ACCOUNT'),
+        insecure_mode = True,
     )
 
     conn.cursor().execute("USE DATABASE SNOWFLAKE_SAMPLE_DATA")
@@ -29,4 +30,8 @@ def main(mytimer: func.TimerRequest) -> None:
         logging.error(f"Something went wrong...\n${e}")
     finally:
         cur.close()
-    logging.info('Python timer trigger function ran at %s', utc_timestamp)
+
+    utc_timestamp = datetime.datetime.utcnow().replace(
+        tzinfo=datetime.timezone.utc).isoformat()
+    logging.info('Python timer trigger function done %s', utc_timestamp)
+    
