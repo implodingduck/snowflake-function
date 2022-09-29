@@ -301,6 +301,7 @@ resource "azurerm_linux_function_app" "func" {
 
   site_config {
     application_insights_key = azurerm_application_insights.app.instrumentation_key
+    vnet_route_all_enabled   = true
     application_stack {
       python_version = "3.8"
     }
