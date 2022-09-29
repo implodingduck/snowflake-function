@@ -26,7 +26,7 @@ def main(mytimer: func.TimerRequest) -> None:
         conn = snowflake.connector.connect(
             user=os.environ.get('SF_USER'),
             password=os.environ.get('SF_PASS'),
-            account=f"${os.environ.get('SF_ACCOUNT')}.privatelink",
+            account=f"{os.environ.get('SF_ACCOUNT')}.privatelink",
 
             insecure_mode = True,
         )
@@ -36,13 +36,13 @@ def main(mytimer: func.TimerRequest) -> None:
         try:
             cur.execute("SHOW TABLES")
             for r in cur:
-                logging.info(f"${r}")
+                logging.info(f"{r}")
         except Exception as e:
-            logging.error(f"Something went wrong...\n${e}")
+            logging.error(f"Something went wrong...\n{e}")
         finally:
             cur.close()
     except Exception as e:
-        logging.error(f"Snowflake error: ${e}")
+        logging.error(f"Snowflake error: {e}")
 
     utc_timestamp_end = datetime.datetime.utcnow().replace(
         tzinfo=datetime.timezone.utc).isoformat()
