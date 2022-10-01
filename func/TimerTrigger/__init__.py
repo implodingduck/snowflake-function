@@ -39,8 +39,8 @@ def main(mytimer: func.TimerRequest) -> None:
                 logging.info(f"{r}")
         except Exception as e:
             logging.error(f"Something went wrong...\n{e}")
-        finally:
-            cur.close()
+        # finally:
+        #     cur.close()
     except Exception as e:
         logging.error(f"Snowflake error: {e}")
 
