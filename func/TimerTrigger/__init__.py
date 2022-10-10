@@ -22,12 +22,12 @@ class MySnowFlake():
             password=password,
             account=account,
         )
-        self.cursor = self.con.cursor()
+        self.cursor = self.conn.cursor()
 
     def close_con(self):
         logger.info("MySnowFlake Close Con...")
         self.cursor.close()
-        self.con.close()
+        self.conn.close()
 
     def execute_query(self, query):
         try:
